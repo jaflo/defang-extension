@@ -1,0 +1,133 @@
+/* Hide chat */
+#pagelet_sidebar,
+#pagelet_dock,
+.fbChatSidebar {
+	display: none !important;
+}
+
+/* Fix shift from now-hidden chat sidebar */
+.sidebarMode #globalContainer,
+.sidebarMode #bluebarRoot > div > div {
+	padding-right: 0 !important;
+}
+
+/* Hide chat count */
+#mercurymessagesCountValue {
+	font-size: 0;
+	width: 0;
+	border-radius: 99px;
+	min-height: 0;
+	padding: 5px;
+	margin: 1px;
+}
+
+/* Notification mode */
+body.home:not(.enabled) #fb_stories_card_root,
+body.home:not(.enabled) #stream_pagelet,
+body.home:not(.enabled) #headerArea,
+body.home:not(.enabled) #contentArea,
+body.home:not(.enabled) #fbNotificationsFlyout .beeperNub,
+body.home:not(.enabled) #fbNotificationsJewel .jewelButton {
+	display: none;
+}
+
+body.home:not(.enabled) #fbNotificationsFlyout {
+	display: block;
+	border: 1px solid #dddfe2;
+	border-radius: 3px;
+	position: fixed;
+	top: 55px;
+	left: 50%;
+	transform: translateX(-50%) translateX(-65px);
+	width: 500px;
+	box-shadow: none;
+}
+
+body.enabled #fbNotificationsFlyout .showfeed {
+	display: none;
+}
+
+#fbNotificationsFlyout:not(.loaded) .showfeed {
+	display: none;
+}
+
+body.home:not(.enabled) #fbNotificationsFlyout .uiScrollableAreaBody {
+	width: auto !important;
+}
+
+/* Sidebar offset from top aesthetic fixes */
+body.home:not(.enabled) #rightCol [style="position: relative;"] > div {
+	padding-top: 0;
+}
+
+body:not(.home.enabled) #rightCol {
+	padding-top: 12px !important;
+}
+
+/* Reaction text shift fix */
+._3dlg + ._3dli {
+	margin-left: 0 !important;
+}
+
+/* React, comment, share count, comment react count,
+   someone is typing, group notification count */
+._3dlg,
+._4vn1,
+._3bem,
+._1lld,
+#left_nav_section_nodes .countValue {
+	display: none !important;
+}
+
+/* Group notification count */
+#left_nav_section_nodes .linkWrap {
+	max-width: 100%;
+}
+
+/* Notification list */
+body:not(.enabled)
+	#fbNotificationsFlyout
+	.uiScrollableAreaContent
+	ul
+	li
+	ul
+	li:not(.jewelItemNew) {
+	opacity: 0.7;
+}
+
+#fbNotificationsFlyout .jewelLoading {
+	margin: 10em auto;
+}
+
+/* You're caught up message */
+#fbNotificationsFlyout.caughtup .showfeed,
+#fbNotificationsFlyout:not(.caughtup) .allcaughtupmsg {
+	display: none;
+}
+
+#fbNotificationsFlyout.caughtup #u_0_h {
+	height: 1px;
+	overflow: hidden;
+}
+
+#fbNotificationsFlyout.caughtup .allcaughtupmsg {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 6em 1em;
+	font-size: 2em;
+}
+
+#fbNotificationsFlyout.caughtup .allcaughtupmsg .img {
+	margin-left: 0.3em;
+}
+
+/* Fix horizontal scroll */
+#globalContainer {
+	overflow-x: hidden;
+}
+
+/* Less flashy icons */
+body:not(.enabled) #left_nav_section_nodes .imgWrap {
+	filter: grayscale(1);
+}

@@ -1,0 +1,35 @@
+{
+	"name": "Defang for Facebook",
+	"description": "Makes Facebook less addictive.",
+	"manifest_version": 2,
+	"version": "1.0.2",
+	"homepage_url": "https://github.com/jaflo/defang-extension",
+	"icons": {
+		"32": "icons/icon-32.png",
+		"512": "icons/icon-512.png"
+	},
+
+	"permissions": [
+		"webRequest",
+		"webRequestBlocking",
+		"https://facebook.com/*",
+		"https://*.facebook.com/*"
+	],
+
+	"background": {
+		"scripts": ["background.js"]
+	},
+
+	"content_scripts": [
+		{
+			"matches": ["https://facebook.com/*", "https://*.facebook.com/*"],
+			"css": ["styles.css"],
+			"run_at": "document_start"
+		},
+		{
+			"matches": ["https://facebook.com/*", "https://*.facebook.com/*"],
+			"js": ["script.js"],
+			"run_at": "document_end"
+		}
+	]
+}
