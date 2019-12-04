@@ -2,7 +2,7 @@
 
 # Defang for Facebook
 
-Browser extension to make Facebook less addictive. Available for [Chrome](https://chrome.google.com/webstore/detail/defang-for-facebook/lmnbinmplnbhnefoknofadelajkjeehl) and [Firefox](https://addons.mozilla.org/firefox/addon/defang-for-facebook/).
+Browser extension to make Facebook less addictive. Available for [Chrome](https://chrome.google.com/webstore/detail/defang-for-facebook/lmnbinmplnbhnefoknofadelajkjeehl) and [Firefox](https://addons.mozilla.org/firefox/addon/defang-for-facebook/). Made for [Contemporary Issues in Computer Science](https://www.cs.utexas.edu/users/theshark/courses/cs349/) at The University of Texas at Austin.
 
 <img src="screenshots/home.png" width="520" height="325" />
 

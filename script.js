@@ -42,20 +42,36 @@
 
 	defang(document.body);
 
-	// re-check when new elements are loaded (infinite scroll)
-	new MutationObserver(function(mutations) {
-		mutations.forEach(function(mutation) {
-			if (mutation.addedNodes && mutation.addedNodes.length > 0) {
-				mutation.addedNodes.forEach(function(added) {
-					if (!added.querySelectorAll) return;
-					defang(added);
+	function dismissNotificationInterstitial() {
+		document.body.classList.add("enabled");
+		document.body.click();
+		forceShowNotifications = false;
+		window.dispatchEvent(new CustomEvent("scroll"));
+	}
+
+	function reattach() {
+		// re-check when new elements are loaded (infinite scroll)
+		if (document.getElementById("stream_pagelet"))
+			new MutationObserver(function(mutations) {
+				mutations.forEach(function(mutation) {
+					if (mutation.addedNodes && mutation.addedNodes.length > 0) {
+						mutation.addedNodes.forEach(function(added) {
+							if (!added.querySelectorAll) return;
+							defang(added);
+						});
+					}
 				});
-			}
-		});
-	}).observe(document.getElementById("stream_pagelet"), {
-		childList: true,
-		subtree: true
-	});
+			}).observe(document.getElementById("stream_pagelet"), {
+				childList: true,
+				subtree: true
+			});
+	}
+
+	reattach();
+	window.onhashchange = function() {
+		dismissNotificationInterstitial();
+		reattach();
+	};
 
 	// stop FB button in top left
 	document.querySelector("h1").addEventListener("click", function(e) {
@@ -71,6 +87,17 @@
 	// by default, load notification view
 	if (document.body.classList.contains("home"))
 		document.querySelector("#fbNotificationsJewel .jewelButton").click();
+
+	// sometimes it gets cleared, this reloads it
+	setInterval(function() {
+		if (
+			document.body.classList.contains("home") &&
+			!document.body.classList.contains("enabled")
+		)
+			document
+				.querySelector("#fbNotificationsJewel .jewelButton")
+				.click();
+	}, 2000);
 
 	// show caught up message when applicable
 	function checkIfCaughtUp() {
@@ -112,7 +139,8 @@
 							if (
 								[
 									"group_highlights",
-									"group_comment_follow"
+									"group_comment_follow",
+									"direct_message_story_posted_for_casual_users"
 								].indexOf(data.notif_type) > -1
 							) {
 								el.remove();
@@ -154,13 +182,10 @@
 	scrollBy.appendChild(
 		document.createTextNode(name + ", you're all caught up!")
 	);
-	scrollBy.appendChild(
-		document
-			.querySelector(
-				"#pagelet_composer [data-sprout-tagger-id=ACTIVITY] .img"
-			)
-			.cloneNode(true)
+	var smiley = document.querySelector(
+		"#pagelet_composer [data-sprout-tagger-id=ACTIVITY] .img"
 	);
+	if (smiley) scrollBy.appendChild(smiley.cloneNode(true));
 	scrollBy.setAttribute("class", "allcaughtupmsg");
 	var insertPoint = document.querySelector(
 		"#fbNotificationsFlyout .jewelFooter"
@@ -185,10 +210,7 @@
 	showFeed.setAttribute("href", "#");
 	showFeed.setAttribute("class", "showfeed");
 	showFeed.onclick = function(e) {
-		document.body.classList.add("enabled");
-		document.body.click();
-		forceShowNotifications = false;
-		window.dispatchEvent(new CustomEvent("scroll"));
+		dismissNotificationInterstitial();
 		e.preventDefault();
 	};
 	document
