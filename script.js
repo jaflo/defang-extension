@@ -43,7 +43,7 @@
 	defang(document.body);
 
 	function dismissNotificationInterstitial() {
-		document.body.classList.add("enabled");
+		document.body.dataset.enabled = true;
 		document.body.click();
 		forceShowNotifications = false;
 		window.dispatchEvent(new CustomEvent("scroll"));
@@ -66,17 +66,12 @@
 				subtree: true
 			});
 	}
-
 	reattach();
-	window.onhashchange = function() {
-		dismissNotificationInterstitial();
-		reattach();
-	};
 
 	// stop FB button in top left
 	document.querySelector("h1").addEventListener("click", function(e) {
+		document.body.dataset.enabled = false;
 		if (window.location.pathname != "/") return;
-		document.body.classList.remove("enabled");
 		window.scrollTo(0, 0);
 		forceShowNotifications = false;
 		checkIfCaughtUp();
@@ -85,19 +80,19 @@
 	});
 
 	// by default, load notification view
-	if (document.body.classList.contains("home"))
-		document.querySelector("#fbNotificationsJewel .jewelButton").click();
-
-	// sometimes it gets cleared, this reloads it
-	setInterval(function() {
-		if (
-			document.body.classList.contains("home") &&
-			!document.body.classList.contains("enabled")
-		)
+	function showNotificationsIfApplicable() {
+		if (window.location.pathname == "/" && !document.body.dataset.enabled) {
 			document
 				.querySelector("#fbNotificationsJewel .jewelButton")
 				.click();
-	}, 2000);
+		} else {
+			document.body.dataset.enabled = true;
+		}
+	}
+	showNotificationsIfApplicable();
+
+	// sometimes it gets cleared, this reloads it
+	setInterval(showNotificationsIfApplicable, 2000);
 
 	// show caught up message when applicable
 	function checkIfCaughtUp() {
@@ -144,6 +139,11 @@
 								].indexOf(data.notif_type) > -1
 							) {
 								el.remove();
+							} else {
+								el.addEventListener("click", function() {
+									dismissNotificationInterstitial();
+									forceShowNotifications = false;
+								});
 							}
 						});
 

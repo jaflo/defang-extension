@@ -2,7 +2,7 @@
 	"name": "Defang for Facebook",
 	"description": "Makes Facebook less addictive.",
 	"manifest_version": 2,
-	"version": "1.0.3",
+	"version": "1.0.4",
 	"homepage_url": "https://github.com/jaflo/defang-extension",
 	"icons": {
 		"32": "icons/icon-32.png",

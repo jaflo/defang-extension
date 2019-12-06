@@ -22,16 +22,16 @@
 }
 
 /* Notification mode */
-body.home:not(.enabled) #fb_stories_card_root,
-body.home:not(.enabled) #stream_pagelet,
-body.home:not(.enabled) #headerArea,
-body.home:not(.enabled) #contentArea,
-body.home:not(.enabled) #fbNotificationsFlyout .beeperNub,
-body.home:not(.enabled) #fbNotificationsJewel .jewelButton {
+body.home:not([data-enabled="true"]) #fb_stories_card_root,
+body.home:not([data-enabled="true"]) #stream_pagelet,
+body.home:not([data-enabled="true"]) #headerArea,
+body.home:not([data-enabled="true"]) #contentArea,
+body.home:not([data-enabled="true"]) #fbNotificationsFlyout .beeperNub,
+body.home:not([data-enabled="true"]) #fbNotificationsJewel .jewelButton {
 	display: none;
 }
 
-body.home:not(.enabled) #fbNotificationsFlyout {
+body.home:not([data-enabled="true"]) #fbNotificationsFlyout {
 	display: block;
 	border: 1px solid #dddfe2;
 	border-radius: 3px;
@@ -43,7 +43,7 @@ body.home:not(.enabled) #fbNotificationsFlyout {
 	box-shadow: none;
 }
 
-body.enabled #fbNotificationsFlyout .showfeed {
+body[data-enabled="true"] #fbNotificationsFlyout .showfeed {
 	display: none;
 }
 
@@ -51,16 +51,21 @@ body.enabled #fbNotificationsFlyout .showfeed {
 	display: none;
 }
 
-body.home:not(.enabled) #fbNotificationsFlyout .uiScrollableAreaBody {
+body.home:not([data-enabled="true"])
+	#fbNotificationsFlyout
+	.uiScrollableAreaBody {
 	width: auto !important;
 }
 
 /* Sidebar offset from top aesthetic fixes */
-body.home:not(.enabled) #rightCol [style="position: relative;"] > div {
+body.home:not([data-enabled="true"])
+	#rightCol
+	[style="position: relative;"]
+	> div {
 	padding-top: 0;
 }
 
-body:not(.home.enabled) #rightCol {
+body:not(.home[data-enabled="true"]) #rightCol {
 	padding-top: 12px !important;
 }
 
@@ -85,7 +90,7 @@ body:not(.home.enabled) #rightCol {
 }
 
 /* Notification list */
-body:not(.enabled)
+body:not([data-enabled="true"])
 	#fbNotificationsFlyout
 	.uiScrollableAreaContent
 	ul
@@ -128,6 +133,6 @@ body:not(.enabled)
 }
 
 /* Less flashy icons */
-body:not(.enabled) #left_nav_section_nodes .imgWrap {
+body:not([data-enabled="true"]) #left_nav_section_nodes .imgWrap {
 	filter: grayscale(1);
 }
